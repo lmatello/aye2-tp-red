@@ -8,7 +8,8 @@ public class Terminal extends Dispositivo {
     private String tipo; // Tablet, Notebook, Etc.
     private String so; // Win, Mac, Linux.
 
-    public Terminal(String tipo, String so) {
+    public Terminal(String marca, String modelo, String tipo, String so) {
+        super(marca,modelo);
         this.tipo = tipo;
         this.so = so;
     }
