@@ -5,8 +5,8 @@ package com.caece.Dispositivo;
  */
 public abstract class Dispositivo {
 
-    private String marca;
-    private String modelo;
+    protected String marca;
+    protected String modelo;
 
     public Dispositivo() {
     }
