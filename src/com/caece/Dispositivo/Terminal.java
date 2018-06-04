@@ -1,17 +1,19 @@
 package com.caece.Dispositivo;
 
+import com.caece.SO.IInstallable;
+import com.caece.SO.SO;
+
 /**
  * Created by lmatello on 30/05/2018.
  */
-public class Terminal extends Dispositivo {
+public class Terminal extends Dispositivo implements IInstallable{
 
     private String tipo; // Tablet, Notebook, Etc.
-    private String so; // Win, Mac, Linux.
+    private SO sistemaOperativo;
 
-    public Terminal(String marca, String modelo, String tipo, String so) {
+    public Terminal(String marca, String modelo, String tipo) {
         super(marca,modelo);
         this.tipo = tipo;
-        this.so = so;
     }
 
     public String getTipo() {
@@ -22,11 +24,8 @@ public class Terminal extends Dispositivo {
         this.tipo = tipo;
     }
 
-    public String getSo() {
-        return so;
-    }
-
-    public void setSo(String so) {
-        this.so = so;
+    @Override
+    public void instalar(SO so) {
+        this.sistemaOperativo = so;
     }
 }
