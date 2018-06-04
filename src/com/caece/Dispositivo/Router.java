@@ -1,5 +1,6 @@
 package com.caece.Dispositivo;
 
+import com.caece.IP;
 import com.caece.SO.IInstallable;
 import com.caece.SO.SO;
 
@@ -10,7 +11,10 @@ public class Router extends Dispositivo implements IInstallable {
 
     private SO sistemaOperativo;
 
-    public Router() {
+    public Router(String marca, String modelo, SO sistemaOperativo, int puertos) {
+        super(marca, modelo, puertos);
+        this.sistemaOperativo = sistemaOperativo;
+        this.puertos = puertos;
     }
 
     @Override

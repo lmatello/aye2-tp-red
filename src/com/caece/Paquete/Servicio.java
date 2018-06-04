@@ -7,19 +7,8 @@ import com.caece.IP;
  */
 public class Servicio extends Paquete {
 
-    enum TipoServicio {WHO};
-    private TipoServicio tipoServicio; // O Directamente un string?
-
-    public Servicio(IP direccionOrigen, IP direccionDestino, Integer timeToLive, TipoServicio tipoServicio) {
+    public Servicio(IP direccionOrigen, IP direccionDestino, Integer timeToLive) {
         super(direccionOrigen, direccionDestino, timeToLive);
-        this.tipoServicio = tipoServicio;
-    }
 
-    public TipoServicio getTipoServicio() {
-        return tipoServicio;
-    }
-
-    public void setTipoServicio(TipoServicio tipoServicio) {
-        this.tipoServicio = tipoServicio;
     }
 }

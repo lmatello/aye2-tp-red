@@ -7,10 +7,13 @@ import com.caece.Excepciones.InvalidIPException;
  */
 public class IP {
 
-    int octeto1;
-    int octeto2;
-    int octeto3;
-    int octeto4;
+    private int octeto1;
+    private int octeto2;
+    private int octeto3;
+    private int octeto4;
+
+    public IP() {
+    }
 
     public IP(int octeto1, int octeto2, int octeto3, int octeto4) throws InvalidIPException {
         if (octeto1 < 0 || octeto1 > 255)
@@ -19,7 +22,8 @@ public class IP {
             throw new InvalidIPException("IP fuera de rango");
         else if (octeto3 < 0 || octeto3 > 255)
             throw new InvalidIPException("IP fuera de rango");
-        else if  (octeto4 < 0 || octeto4 > 255 || octeto4 == 0 || octeto4 == 255)
+        else if  (octeto4 < 0 || octeto4 > 255 || octeto4 == 255)
+            //else if  (octeto4 < 0 || octeto4 > 255 || octeto4 == 0 || octeto4 == 255)
             throw new InvalidIPException("IP fuera de rango");
         else {
             this.octeto1 = octeto1;
@@ -28,5 +32,22 @@ public class IP {
             this.octeto4 = octeto4;
             System.out.println("La nueva IP es : " + octeto1 + "." + octeto2 + "." + octeto3 + "." + octeto4);
         }
+    }
+
+
+
+    public static IP stringToIP (String ip) throws InvalidIPException {
+
+        return new IP(Integer.parseInt(ip.split("\\.")[0]),Integer.parseInt(ip.split("\\.")[1]),Integer.parseInt(ip.split("\\.")[2]),Integer.parseInt(ip.split("\\.")[3]));
+    }
+
+    @Override
+    public String toString() {
+        return "IP{" +
+                "octeto1=" + octeto1 +
+                ", octeto2=" + octeto2 +
+                ", octeto3=" + octeto3 +
+                ", octeto4=" + octeto4 +
+                '}';
     }
 }
