@@ -6,6 +6,7 @@ package com.caece.Excepciones;
 public class InvalidIPException extends NetWorkException{
 
     public InvalidIPException() {
+        super("IP fuera de rango");
     }
 
     public InvalidIPException(String message) {

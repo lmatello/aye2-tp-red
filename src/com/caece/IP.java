@@ -17,14 +17,14 @@ public class IP {
 
     public IP(int octeto1, int octeto2, int octeto3, int octeto4) throws InvalidIPException {
         if (octeto1 < 0 || octeto1 > 255)
-            throw new InvalidIPException("IP fuera de rango");
+            throw new InvalidIPException();
         else if (octeto2 < 0 || octeto2 > 255)
-            throw new InvalidIPException("IP fuera de rango");
+            throw new InvalidIPException();
         else if (octeto3 < 0 || octeto3 > 255)
-            throw new InvalidIPException("IP fuera de rango");
+            throw new InvalidIPException();
         else if  (octeto4 < 0 || octeto4 > 255 || octeto4 == 255)
             //else if  (octeto4 < 0 || octeto4 > 255 || octeto4 == 0 || octeto4 == 255)
-            throw new InvalidIPException("IP fuera de rango");
+            throw new InvalidIPException();
         else {
             this.octeto1 = octeto1;
             this.octeto2 = octeto2;
@@ -34,10 +34,7 @@ public class IP {
         }
     }
 
-
-
     public static IP stringToIP (String ip) throws InvalidIPException {
-
         return new IP(Integer.parseInt(ip.split("\\.")[0]),Integer.parseInt(ip.split("\\.")[1]),Integer.parseInt(ip.split("\\.")[2]),Integer.parseInt(ip.split("\\.")[3]));
     }
 

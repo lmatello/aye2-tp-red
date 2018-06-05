@@ -1,5 +1,7 @@
 package com.caece.Dispositivo;
 
+import com.caece.Excepciones.DeviceNotConnectedException;
+import com.caece.Excepciones.ExceededConectionException;
 import com.caece.IP;
 import com.caece.SO.IInstallable;
 import com.caece.SO.SO;
@@ -11,14 +13,24 @@ public class Router extends Dispositivo implements IInstallable {
 
     private SO sistemaOperativo;
 
-    public Router(String marca, String modelo, SO sistemaOperativo, int puertos) {
+    public Router(String marca, String modelo, int puertos) {
         super(marca, modelo, puertos);
-        this.sistemaOperativo = sistemaOperativo;
         this.puertos = puertos;
     }
 
     @Override
     public void instalar(SO so) {
         this.sistemaOperativo = so;
+    }
+
+    // Este metodo es igual en todos los dispositivos.
+    // Lo lleve a "DISPOSITVO". Seria correcto? Dejo de ser un metodo abstracto el conectar.
+    @Override
+    public void conectar(Dispositivo dispositivo) throws ExceededConectionException {
+        super.conectar(dispositivo);
+    }
+
+    @Override
+    public void desconectar(Dispositivo dispositivo) throws DeviceNotConnectedException {
     }
 }
