@@ -16,8 +16,6 @@ public abstract class SO {
     private String version;
     private ArrayList<IP> listaIps; // Lista de ips de dispositivos conectados?
     private IP defaultGateway;
-    private Map<IP, Integer> tablaRuteo;
-    private Map<Integer, Dispositivo> tablaRuteoDispositivos;
 
     public SO(String nombre, String version) throws InvalidIPException {
         this.nombre = nombre;

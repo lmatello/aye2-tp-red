@@ -42,7 +42,7 @@ public class Main {
         hub1.getDispositivosConectados().stream().forEach(dispositivo -> System.out.println("Marca : " + dispositivo.getMarca() + " - Modelo :" + dispositivo.getModelo()));
         router1.getDispositivosConectados().stream().forEach(dispositivo -> System.out.println("Marca : " + dispositivo.getMarca() + " - Modelo :" + dispositivo.getModelo()));
 
-        pc3.conectar(hub1); //Este da error de conexion porque el hub solo tiene 2 puertos y le mande 3.
+        pc3.conectar(hub1); //Este da error (esperado) de conexion porque el hub solo tiene 2 puertos y le mande 3.
 
     }
 }
