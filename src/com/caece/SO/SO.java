@@ -42,13 +42,10 @@ public abstract class SO {
     }
 
 
-//    public void asignarIP (String ip) throws InvalidIPException {
-//        ArrayList<IP> listaIps = this.getListaIps();
-//        listaIps.add(IP.stringToIP(ip));
-//        this.setListaIps(listaIps);
-//    }
+    public void asignarIP(String ip) throws InvalidIPException {
+        this.tablaRuteo.put(0,IP.stringToIP(ip));
+    }
 
-    //ESTO ES PROPIO DEL ROUTER. HAY QUE LLEVARLO A LINUX ROUTER (Haciendo que el router tenga un SO propio de router
     public void asignarIPPuerto(Integer interfaz, String ip) throws InvalidIPException {
         this.tablaRuteo.put(interfaz,IP.stringToIP(ip));
     }
