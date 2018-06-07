@@ -35,9 +35,9 @@ public class Main {
         pc3.getSistemaOperativo().asignarIP("192.168.1.30");
 
         // Creacion de HUBs y Routers
-        Hub hub1 = new Hub("TP-LINK", "Sg1005d", 2);
-        Hub hub2 = new Hub("Linksys", "Simon", 2);
-        Router router1 = new Router("LinkSys","2750 Dual Band", 2);
+        Hub hub1 = new Hub("TP-LINK", "Sg1005d", 3);
+        Hub hub2 = new Hub("Linksys", "Simon", 3);
+        Router router1 = new Router("LinkSys","2750 Dual Band", 4);
 
         //Configuracion Router
         router1.instalar(linuxRouter);
@@ -60,12 +60,9 @@ public class Main {
             System.out.println(router1.getSistemaOperativo().getTablaRuteo().get(i));
         }
 
-//        System.out.println("Hub1 :");
-//        hub1.getDispositivosConectados().stream().forEach(dispositivo -> System.out.println("Marca : " + dispositivo.getMarca() + " - Modelo :" + dispositivo.getModelo()));
-//        System.out.println("Hub2 :");
-//        hub2.getDispositivosConectados().stream().forEach(dispositivo -> System.out.println("Marca : " + dispositivo.getMarca() + " - Modelo :" + dispositivo.getModelo()));
-//        System.out.println("Router1 :");
-//        router1.getDispositivosConectados().stream().forEach(dispositivo -> System.out.println("Marca : " + dispositivo.getMarca() + " - Modelo :" + dispositivo.getModelo()));
-
+        System.out.println("Hub1 :");
+        for (int i=0; i < hub1.getDispositivosConectados().length; i++){
+            System.out.println(hub1.getDispositivosConectados()[i]);
+        }
     }
 }

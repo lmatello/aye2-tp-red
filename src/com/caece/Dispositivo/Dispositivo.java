@@ -57,17 +57,38 @@ public abstract class Dispositivo {
         this.dispositivosConectados = dispositivosConectados;
     }
 
-    //VER ESTE METODO
     public void conectar(Dispositivo dispositivo) throws ExceededConectionException {
-        //if (dispositivo.getDispositivosConectados().size() < dispositivo.puertos){
-            // validar que dispo actual tenga puertos libres
-            // validar que dispo destino tenga puertos libres
-            // obtengo puertos libres de ambos dispo y devuelo el indice
-            // luego los coencto como abajo
-        //    dispositivo.getDispositivosConectados().add(this);
-        //} else {
-         //   throw new ExceededConectionException(dispositivo);
-       // }
+        if (validarPuertosLibres(this) && validarPuertosLibres(dispositivo)){
+            this.dispositivosConectados[getIndiceLibre(this)] = dispositivo;
+            dispositivo.dispositivosConectados[getIndiceLibre(dispositivo)] = this;
+        }
+        else {
+             throw new ExceededConectionException(dispositivo);
+        }
+    }
+
+    private boolean validarPuertosLibres(Dispositivo dispositivo) throws ExceededConectionException {
+        boolean puertoLibres = false;
+        for (int i=0; i < dispositivo.dispositivosConectados.length; i++){
+            if (dispositivo.getDispositivosConectados()[i] == null){
+                puertoLibres = true;
+            }
+        }
+        if (puertoLibres){
+            return puertoLibres;
+        }else {
+            throw new ExceededConectionException(dispositivo);
+        }
+    }
+
+    private int getIndiceLibre(Dispositivo dispositivo) {
+        int indice = -1;
+        for (int i=0; i < dispositivo.dispositivosConectados.length; i++){
+            if (dispositivo.getDispositivosConectados()[i] == null){
+                indice = i;
+            }
+        }
+        return indice;
     }
 
     public abstract void desconectar(Dispositivo dispo) throws DeviceNotConnectedException;
