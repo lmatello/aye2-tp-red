@@ -13,7 +13,7 @@ public abstract class Dispositivo {
     protected String marca;
     protected String modelo;
     protected int puertos; //maximos dispositivos que se pueden conectar
-    protected ArrayList<Dispositivo> dispositivosConectados;
+    protected Dispositivo[] dispositivosConectados;
 
     public Dispositivo() {
     }
@@ -22,7 +22,7 @@ public abstract class Dispositivo {
         this.marca = marca;
         this.modelo = modelo;
         this.puertos = puertos;
-        this.dispositivosConectados = new ArrayList<>(); //Inicializo en vacio la lista de Dispositivos conectados
+        this.dispositivosConectados = new Dispositivo[puertos];
     }
 
     public String getMarca() {
@@ -49,21 +49,25 @@ public abstract class Dispositivo {
         this.puertos = puertos;
     }
 
-    public ArrayList<Dispositivo> getDispositivosConectados() {
+    public Dispositivo[] getDispositivosConectados() {
         return dispositivosConectados;
     }
 
-    public void setDispositivosConectados(ArrayList<Dispositivo> dispositivosConectados) {
+    public void setDispositivosConectados(Dispositivo[] dispositivosConectados) {
         this.dispositivosConectados = dispositivosConectados;
     }
 
     //VER ESTE METODO
     public void conectar(Dispositivo dispositivo) throws ExceededConectionException {
-        if (dispositivo.getDispositivosConectados().size() < dispositivo.puertos){
-            dispositivo.getDispositivosConectados().add(this);
-        } else {
-            throw new ExceededConectionException(dispositivo);
-        }
+        //if (dispositivo.getDispositivosConectados().size() < dispositivo.puertos){
+            // validar que dispo actual tenga puertos libres
+            // validar que dispo destino tenga puertos libres
+            // obtengo puertos libres de ambos dispo y devuelo el indice
+            // luego los coencto como abajo
+        //    dispositivo.getDispositivosConectados().add(this);
+        //} else {
+         //   throw new ExceededConectionException(dispositivo);
+       // }
     }
 
     public abstract void desconectar(Dispositivo dispo) throws DeviceNotConnectedException;

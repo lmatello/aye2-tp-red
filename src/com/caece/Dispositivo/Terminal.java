@@ -17,8 +17,8 @@ public class Terminal extends Dispositivo implements IInstallable{
     private String tipo; // Tablet, Notebook, Etc.
     private SO sistemaOperativo;
 
-    public Terminal(String marca, String modelo, String tipo, int puertos) {
-        super(marca,modelo,puertos);
+    public Terminal(String marca, String modelo, String tipo) {
+        super(marca,modelo,1);
         this.tipo = tipo;
     }
 
@@ -37,13 +37,6 @@ public class Terminal extends Dispositivo implements IInstallable{
     public void setSistemaOperativo(SO sistemaOperativo) {
         this.sistemaOperativo = sistemaOperativo;
     }
-
-    public void asignarIP (String ip) throws InvalidIPException {
-        ArrayList<IP> listaIps = this.sistemaOperativo.getListaIps();
-        listaIps.add(IP.stringToIP(ip));
-        this.sistemaOperativo.setListaIps(listaIps);
-    }
-
 
 
     @Override

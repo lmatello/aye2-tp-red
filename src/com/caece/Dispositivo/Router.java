@@ -4,6 +4,7 @@ import com.caece.Excepciones.DeviceNotConnectedException;
 import com.caece.Excepciones.ExceededConectionException;
 import com.caece.IP;
 import com.caece.SO.IInstallable;
+import com.caece.SO.LinuxRouter;
 import com.caece.SO.SO;
 
 import java.util.HashMap;
@@ -15,14 +16,14 @@ import java.util.Map;
 public class Router extends Dispositivo implements IInstallable {
 
     private SO sistemaOperativo;
-    private Map<Integer, IP> tablaRuteo;
-    private Map<Integer, Dispositivo> tablaRuteoDispositivos;
 
     public Router(String marca, String modelo, int puertos) {
         super(marca, modelo, puertos);
         this.puertos = puertos;
-        this.tablaRuteo = new HashMap<Integer, IP>();
-        this.tablaRuteoDispositivos = new HashMap<Integer, Dispositivo>();
+    }
+
+    public SO getSistemaOperativo() {
+        return sistemaOperativo;
     }
 
     @Override
