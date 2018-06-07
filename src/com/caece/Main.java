@@ -29,11 +29,11 @@ public class Main {
 
         //Asignacion de IPs
         //Las IPs se pedirian mediante un SCANNER para que el usuario las ingrese por terminal
-        pc1.getSistemaOperativo().asignarIP("192.168.0.10");
-        pc1.getSistemaOperativo().asignarIP("192.168.0.11");
-        pc2.getSistemaOperativo().asignarIP("192.168.0.20");
+        pc1.getSistemaOperativo().asignarIPPuerto(0, "192.168.0.10");
+        pc1.getSistemaOperativo().asignarIPPuerto(0, "192.168.0.11");
+        pc2.getSistemaOperativo().asignarIPPuerto(0, "192.168.0.20");
 
-        pc3.getSistemaOperativo().asignarIP("192.168.1.30");
+        pc3.getSistemaOperativo().asignarIPPuerto(0, "192.168.1.30");
 
         // Creacion de HUBs y Routers
         Hub hub1 = new Hub("TP-LINK", "Sg1005d", 2);
@@ -42,7 +42,8 @@ public class Main {
 
         //Configuracion Router
         router1.instalar(linuxRouter);
-        router1.getSistemaOperativo();
+        router1.getSistemaOperativo().asignarIPPuerto(0, "192.168.0.254");
+        router1.getSistemaOperativo().asignarIPPuerto(1, "192.168.1.254");
 
         pc1.conectar(hub1);
         pc2.conectar(hub1);
@@ -50,6 +51,12 @@ public class Main {
 
         hub1.conectar(router1);
         hub2.conectar(router1);
+
+        //VERLO
+        System.out.println("Ips de PC1 :");
+        for (int i=0; i<pc1.getSistemaOperativo().getTablaRuteo().size(); i++) {
+            System.out.println(pc1.getSistemaOperativo().getTablaRuteo().get(i));
+        }
 
 //        System.out.println("Hub1 :");
 //        hub1.getDispositivosConectados().stream().forEach(dispositivo -> System.out.println("Marca : " + dispositivo.getMarca() + " - Modelo :" + dispositivo.getModelo()));

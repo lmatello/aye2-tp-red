@@ -15,5 +15,4 @@ public class LinuxRouter extends SO {
     public LinuxRouter(String nombre, String version) throws InvalidIPException {
         super(nombre, version);
     }
-
 }

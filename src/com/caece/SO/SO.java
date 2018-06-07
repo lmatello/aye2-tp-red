@@ -15,14 +15,14 @@ public abstract class SO {
 
     private String nombre;
     private String version;
-    private ArrayList<IP> listaIps; // Lista de ips de dispositivos conectados?
+    //private ArrayList<IP> listaIps; // Lista de ips de dispositivos conectados?
     protected Map<Integer, IP> tablaRuteo;
     private IP defaultGateway;
 
     public SO(String nombre, String version) throws InvalidIPException {
         this.nombre = nombre;
         this.version = version;
-        this.listaIps = new ArrayList<>(); //Inicializo en vacio la lista de IPs
+        //this.listaIps = new ArrayList<>(); //Inicializo en vacio la lista de IPs
         this.defaultGateway = new IP(0,0,0,0);
         this.tablaRuteo = new HashMap<Integer, IP>();
     }
@@ -30,7 +30,7 @@ public abstract class SO {
     public SO(String nombre, String version, ArrayList<IP> listaIps) {
         this.nombre = nombre;
         this.version = version;
-        this.listaIps = listaIps;
+        //this.listaIps = listaIps;
     }
 
     public Map<Integer, IP> getTablaRuteo() {
@@ -41,17 +41,15 @@ public abstract class SO {
         this.tablaRuteo = tablaRuteo;
     }
 
-    public void setListaIps(ArrayList<IP> listaIps) {
-        this.listaIps = listaIps;
-    }
 
-    public ArrayList<IP> getListaIps() {
-        return listaIps;
-    }
+//    public void asignarIP (String ip) throws InvalidIPException {
+//        ArrayList<IP> listaIps = this.getListaIps();
+//        listaIps.add(IP.stringToIP(ip));
+//        this.setListaIps(listaIps);
+//    }
 
-    public void asignarIP (String ip) throws InvalidIPException {
-        ArrayList<IP> listaIps = this.getListaIps();
-        listaIps.add(IP.stringToIP(ip));
-        this.setListaIps(listaIps);
+    //ESTO ES PROPIO DEL ROUTER. HAY QUE LLEVARLO A LINUX ROUTER (Haciendo que el router tenga un SO propio de router
+    public void asignarIPPuerto(Integer interfaz, String ip) throws InvalidIPException {
+        this.tablaRuteo.put(interfaz,IP.stringToIP(ip));
     }
 }
