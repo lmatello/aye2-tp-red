@@ -27,21 +27,11 @@ public abstract class SO {
         this.tablaRuteo = new HashMap<Integer, IP>();
     }
 
-    public SO(String nombre, String version, ArrayList<IP> listaIps) {
-        this.nombre = nombre;
-        this.version = version;
-        //this.listaIps = listaIps;
-    }
-
     public Map<Integer, IP> getTablaRuteo() {
         return tablaRuteo;
     }
 
-    public void setTablaRuteo(Map<Integer, IP> tablaRuteo) {
-        this.tablaRuteo = tablaRuteo;
-    }
-
-
+    // Dejando el metodo asi, una terminal no podria tener mas de una IP (se pisan las ips con la Key 0 del map)
     public void asignarIP(String ip) throws InvalidIPException {
         this.tablaRuteo.put(0,IP.stringToIP(ip));
     }
