@@ -38,6 +38,12 @@ public class IP {
         return new IP(Integer.parseInt(ip.split("\\.")[0]),Integer.parseInt(ip.split("\\.")[1]),Integer.parseInt(ip.split("\\.")[2]),Integer.parseInt(ip.split("\\.")[3]));
     }
 
+    public Boolean iguales(IP ip) {
+        return this.octeto1 == ip.octeto1 && this.octeto2 == ip.octeto2
+                && this.octeto3 == ip.octeto3 && this.octeto4 == ip.octeto4;
+
+    }
+
     @Override
     public String toString() {
         return "IP{" +

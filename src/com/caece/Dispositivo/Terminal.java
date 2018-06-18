@@ -4,6 +4,7 @@ import com.caece.Excepciones.DeviceNotConnectedException;
 import com.caece.Excepciones.ExceededConectionException;
 import com.caece.Excepciones.InvalidIPException;
 import com.caece.IP;
+import com.caece.Paquete.Paquete;
 import com.caece.SO.IInstallable;
 import com.caece.SO.SO;
 
@@ -42,6 +43,7 @@ public class Terminal extends Dispositivo implements IInstallable{
     @Override
     public void instalar(SO so) {
         this.sistemaOperativo = so;
+        sistemaOperativo.setDispositivo(this);
     }
 
     @Override
@@ -51,5 +53,13 @@ public class Terminal extends Dispositivo implements IInstallable{
 
     @Override
     public void desconectar(Dispositivo dispositivo) throws DeviceNotConnectedException {
+    }
+
+    public void recibir(Paquete paquete) {
+
+        //REVISAR LA IP QUE SE LE MANDA EL IGUAL.
+        if (paquete.getDireccionDestino().iguales(this.getSistemaOperativo().getTablaRuteo().get(0))){
+            this.getSistemaOperativo().procesar(paquete);
+        }
     }
 }

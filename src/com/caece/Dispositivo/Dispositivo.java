@@ -2,6 +2,7 @@ package com.caece.Dispositivo;
 
 import com.caece.Excepciones.DeviceNotConnectedException;
 import com.caece.Excepciones.ExceededConectionException;
+import com.caece.Paquete.Paquete;
 
 import java.util.ArrayList;
 
@@ -92,4 +93,7 @@ public abstract class Dispositivo {
     }
 
     public abstract void desconectar(Dispositivo dispo) throws DeviceNotConnectedException;
+
+    public abstract void recibir (Paquete paquete);
+
 }

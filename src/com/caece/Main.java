@@ -4,6 +4,7 @@ import com.caece.Dispositivo.Hub;
 import com.caece.Dispositivo.Router;
 import com.caece.Dispositivo.Terminal;
 import com.caece.Excepciones.NetWorkException;
+import com.caece.Paquete.ICMPRequest;
 import com.caece.Paquete.ICMPResponse;
 import com.caece.Paquete.Paquete;
 import com.caece.Paquete.Servicio;
@@ -52,21 +53,20 @@ public class Main {
         hub1.conectar(router1);
         hub2.conectar(router1);
 
-        Paquete icmpResponse = new ICMPResponse(pc1.getSistemaOperativo().getTablaRuteo().get(0),pc2.getSistemaOperativo().getTablaRuteo().get(0),10);
-        //pc1.getSistemaOperativo().enviar(icmpResponse);
+        pc1.getSistemaOperativo().ping("192.168.0.20");
 
         //Muestreo De Datos
-        System.out.println("PC1 - IPs:");
-        for (int i=0; i<pc1.getSistemaOperativo().getTablaRuteo().size(); i++) {
-            System.out.println(pc1.getSistemaOperativo().getTablaRuteo().get(i));
-        }
-        System.out.println("Router1 - IPs");
-        for (int i=0; i<router1.getSistemaOperativo().getTablaRuteo().size(); i++) {
-            System.out.println(router1.getSistemaOperativo().getTablaRuteo().get(i));
-        }
-        System.out.println("Hub1 - Dispositivos Conectados:");
-        for (int i=0; i < hub1.getDispositivosConectados().length; i++){
-            System.out.println(hub1.getDispositivosConectados()[i].getClass().getName());
-        }
+//        System.out.println("PC1 - IPs:");
+//        for (int i=0; i<pc1.getSistemaOperativo().getTablaRuteo().size(); i++) {
+//            System.out.println(pc1.getSistemaOperativo().getTablaRuteo().get(i));
+//        }
+//        System.out.println("Router1 - IPs");
+//        for (int i=0; i<router1.getSistemaOperativo().getTablaRuteo().size(); i++) {
+//            System.out.println(router1.getSistemaOperativo().getTablaRuteo().get(i));
+//        }
+//        System.out.println("Hub1 - Dispositivos Conectados:");
+//        for (int i=0; i < hub1.getDispositivosConectados().length; i++){
+//            System.out.println(hub1.getDispositivosConectados()[i].getClass().getName());
+//        }
     }
 }
