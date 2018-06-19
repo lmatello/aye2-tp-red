@@ -7,7 +7,15 @@ import com.caece.IP;
  */
 public class Ruteo extends Paquete {
 
+    private IP defaultGateway;
+
     public Ruteo(IP direccionOrigen, IP direccionDestino, Integer timeToLive) {
         super(direccionOrigen, direccionDestino, timeToLive);
+    }
+
+    //Tiene sentido esto?
+    public Ruteo(Servicio servicio, IP defaultGateway){
+        super(servicio.getDireccionOrigen(), servicio.getDireccionDestino(), servicio.getTimeToLive());
+        this.defaultGateway = defaultGateway;
     }
 }

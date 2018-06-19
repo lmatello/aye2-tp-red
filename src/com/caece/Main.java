@@ -56,7 +56,7 @@ public class Main {
         pc1.getSistemaOperativo().ping("192.168.0.20");
         pc2.getSistemaOperativo().ping("192.168.0.10");
 
-        //Prueba paquete de ruteo
+        //Prueba paquete de ruteo -> Hay que armarlo.
         pc1.getSistemaOperativo().ping("192.168.1.30");
 
 

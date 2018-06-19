@@ -3,9 +3,7 @@ package com.caece.SO;
 import com.caece.Dispositivo.Dispositivo;
 import com.caece.Excepciones.InvalidIPException;
 import com.caece.IP;
-import com.caece.Paquete.ICMPRequest;
-import com.caece.Paquete.ICMPResponse;
-import com.caece.Paquete.Paquete;
+import com.caece.Paquete.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -29,7 +27,7 @@ public abstract class SO {
         this.nombre = nombre;
         this.version = version;
         //this.listaIps = new ArrayList<>(); //Inicializo en vacio la lista de IPs
-        this.defaultGateway = new IP(0,0,0,0);
+        this.defaultGateway = null;
         this.tablaRuteo = new HashMap<Integer, IP>();
     }
 
@@ -39,7 +37,9 @@ public abstract class SO {
 
     // Dejando el metodo asi, una terminal no podria tener mas de una IP (se pisan las ips con la Key 0 del map)
     public void asignarIP(String ip) throws InvalidIPException {
-        this.tablaRuteo.put(0,IP.stringToIP(ip));
+        IP newIP = IP.stringToIP(ip);
+        this.tablaRuteo.put(0,newIP);
+        this.defaultGateway = new IP(newIP.getOcteto1(),newIP.getOcteto2(),newIP.getOcteto3(),254);
     }
 
     public void asignarIPPuerto(Integer interfaz, String ip) throws InvalidIPException {
@@ -56,18 +56,22 @@ public abstract class SO {
 
     public void ping (String ip) throws InvalidIPException {
         IP ipDestino = IP.stringToIP(ip);
-        // ACA IF DE ESTA EN LA MISMA RED
         Paquete icmpRequest = new ICMPRequest(this.getTablaRuteo().get(0),ipDestino,10);
         this.enviar(icmpRequest);
 
     }
 
     public void enviar(Paquete paquete){
-        // ACA FALTA IF DE SI ESTA EN LA MISMA RED -> SINO, hay que armar paquete de ruteo
+        //Chequeo MismaRed.
         if (paquete.getDireccionDestino().mismaRed(this.getTablaRuteo().get(0))){
             this.getDispositivo().getDispositivosConectados()[0].recibir(paquete);
         }else {
             System.out.println("HAY QUE ARMAR PAQUETE DE RUTEO");
+
+            //Ver aca el tema de la IP destino de defaultGateway (donde esta esta IP?)
+            Paquete paqueteRuteo = new Ruteo((Servicio)paquete, this.defaultGateway); //Aca podria ir un IF con un instance of
+            //Aca en vez de recibir lo deberia mandar al router, no?
+            this.getDispositivo().getDispositivosConectados()[0].recibir(paqueteRuteo);
         }
     }
 
@@ -80,7 +84,7 @@ public abstract class SO {
                 this.enviar(icmpResponse);
 
             }else if (paquete instanceof ICMPResponse){
-                System.out.println("Recibido ICMP desde : " + paquete.getDireccionOrigen().toString() + " - timeStamp : " + LocalDateTime.now());
+                System.out.println("Recibido ICMP desde : " + paquete.getDireccionOrigen().toString() + " - " + LocalDateTime.now());
             }
         }else{
             System.out.println("DESCARTO PAQUETE desde IP : " + paquete.getDireccionOrigen().toString());
