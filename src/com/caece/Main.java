@@ -56,6 +56,12 @@ public class Main {
         pc1.getSistemaOperativo().ping("192.168.0.20");
         pc2.getSistemaOperativo().ping("192.168.0.10");
 
+        //Prueba paquete de ruteo
+        pc1.getSistemaOperativo().ping("192.168.1.30");
+
+
+
+
         //Muestreo De Datos
 //        System.out.println("PC1 - IPs:");
 //        for (int i=0; i<pc1.getSistemaOperativo().getTablaRuteo().size(); i++) {

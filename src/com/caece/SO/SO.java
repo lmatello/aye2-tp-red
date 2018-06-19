@@ -63,14 +63,18 @@ public abstract class SO {
     }
 
     public void enviar(Paquete paquete){
-        this.getDispositivo().getDispositivosConectados()[0].recibir(paquete);
+        // ACA FALTA IF DE SI ESTA EN LA MISMA RED -> SINO, hay que armar paquete de ruteo
+        if (paquete.getDireccionDestino().mismaRed(this.getTablaRuteo().get(0))){
+            this.getDispositivo().getDispositivosConectados()[0].recibir(paquete);
+        }else {
+            System.out.println("HAY QUE ARMAR PAQUETE DE RUTEO");
+        }
     }
 
     public void procesar(Paquete paquete) {
         //Si el paquetes es "para mi" hago algo. Sino, lo descarto
         // VER ACA PORQUE ESTA PASANDO 2 veces por la IP que le mando. Estaria bien? -> VER LO DE DESCARTAR
         if (paquete.getDireccionDestino().iguales(this.getTablaRuteo().get(0))){
-            // ACA FALTA IF DE SI ESTA EN LA MISMA RED
             if (paquete instanceof ICMPRequest){
                 Paquete icmpResponse = new ICMPResponse(paquete.getDireccionDestino(),paquete.getDireccionOrigen(),10);
                 this.enviar(icmpResponse);

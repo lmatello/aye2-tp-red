@@ -44,6 +44,12 @@ public class IP {
 
     }
 
+    public Boolean mismaRed(IP ip) {
+        return this.octeto1 == ip.octeto1 && this.octeto2 == ip.octeto2
+                && this.octeto3 == ip.octeto3;
+
+    }
+
     @Override
     public String toString() {
         return "IP{" +
