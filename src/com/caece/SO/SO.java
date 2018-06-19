@@ -63,31 +63,23 @@ public abstract class SO {
     }
 
     public void enviar(Paquete paquete){
-        // conectado[0].recibir(paquete);
         this.getDispositivo().getDispositivosConectados()[0].recibir(paquete);
-        // este es el HUB!
-        // el recibir del HUB hace un:
-        // for (Equipos e : conectados){
-        //          e.recibir() -> se lo mando a todos
-        // }
-        // el recibir de la TERMINAL
-        // if (paquete.getIpDest() == this.ips) -> Es para mi?
-        //      procesar(paquete) -> instance of
-        //          Si es para mi el request, le mando la respuesta!
-        //          p2 = new icmpResponse(this.ip, pquete.getOrigen(), ttl)
-        //          ACA IF DE ESTA EN LA MISMA RED
-        //          enviar (p2);
-        //          -> Todo aca idem a lo de arriba
     }
 
     public void procesar(Paquete paquete) {
-        if (paquete instanceof ICMPRequest){
+        //Si el paquetes es "para mi" hago algo. Sino, lo descarto
+        // VER ACA PORQUE ESTA PASANDO 2 veces por la IP que le mando. Estaria bien? -> VER LO DE DESCARTAR
+        if (paquete.getDireccionDestino().iguales(this.getTablaRuteo().get(0))){
             // ACA FALTA IF DE SI ESTA EN LA MISMA RED
-            Paquete icmpResponse = new ICMPResponse(paquete.getDireccionDestino(),paquete.getDireccionOrigen(),10);
-            this.enviar(icmpResponse);
+            if (paquete instanceof ICMPRequest){
+                Paquete icmpResponse = new ICMPResponse(paquete.getDireccionDestino(),paquete.getDireccionOrigen(),10);
+                this.enviar(icmpResponse);
 
-        }else if (paquete instanceof ICMPResponse){
-            System.out.println("Recibido ICMP desde : " + paquete.getDireccionOrigen() + "timeStamp : " + LocalDateTime.now());
+            }else if (paquete instanceof ICMPResponse){
+                System.out.println("Recibido ICMP desde : " + paquete.getDireccionOrigen().toString() + " - timeStamp : " + LocalDateTime.now());
+            }
+        }else{
+            System.out.println("DESCARTO PAQUETE desde IP : " + paquete.getDireccionOrigen().toString());
         }
     }
 }

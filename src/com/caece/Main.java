@@ -54,6 +54,7 @@ public class Main {
         hub2.conectar(router1);
 
         pc1.getSistemaOperativo().ping("192.168.0.20");
+        pc2.getSistemaOperativo().ping("192.168.0.10");
 
         //Muestreo De Datos
 //        System.out.println("PC1 - IPs:");

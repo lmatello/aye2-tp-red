@@ -56,10 +56,6 @@ public class Terminal extends Dispositivo implements IInstallable{
     }
 
     public void recibir(Paquete paquete) {
-
-        //REVISAR LA IP QUE SE LE MANDA EL IGUAL.
-        if (paquete.getDireccionDestino().iguales(this.getSistemaOperativo().getTablaRuteo().get(0))){
-            this.getSistemaOperativo().procesar(paquete);
-        }
+        this.getSistemaOperativo().procesar(paquete);
     }
 }
