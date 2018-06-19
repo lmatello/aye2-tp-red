@@ -67,7 +67,6 @@ public abstract class SO {
             this.getDispositivo().getDispositivosConectados()[0].recibir(paquete);
         }else {
             System.out.println("HAY QUE ARMAR PAQUETE DE RUTEO");
-
             //Ver aca el tema de la IP destino de defaultGateway (donde esta esta IP?)
             Paquete paqueteRuteo = new Ruteo((Servicio)paquete, this.defaultGateway); //Aca podria ir un IF con un instance of
             //Aca en vez de recibir lo deberia mandar al router, no?
@@ -85,8 +84,12 @@ public abstract class SO {
 
             }else if (paquete instanceof ICMPResponse){
                 System.out.println("Recibido ICMP desde : " + paquete.getDireccionOrigen().toString() + " - " + LocalDateTime.now());
+            }else{
+                //Tipo de paquete desconocido
+                System.out.println("DESCARTO PAQUETE - Tipo Paquete DESCONOCIDO");
             }
         }else{
+            //La IP del paquete destino, no es para el dispositivo en cuestion
             System.out.println("DESCARTO PAQUETE desde IP : " + paquete.getDireccionOrigen().toString());
         }
     }
