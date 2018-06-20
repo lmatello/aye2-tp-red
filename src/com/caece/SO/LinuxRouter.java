@@ -1,6 +1,5 @@
 package com.caece.SO;
 
-import com.caece.Dispositivo.Dispositivo;
 import com.caece.Excepciones.InvalidIPException;
 import com.caece.IP;
 import com.caece.Paquete.*;
@@ -47,7 +46,7 @@ public class LinuxRouter extends SO {
     //ESTE DEBERIA SER ABSTRACT Y MANDARLO A CADA TERMINAL O ROUTER
     public void procesar(Paquete paquete) {
         if (paquete instanceof Ruteo) {
-            Integer interfaz = obtenerInterfaz(((Ruteo) paquete).getDefaultGateway());
+            Integer interfaz = obtenerInterfaz(((Ruteo) paquete).getDireccionRuteo());
             if (interfaz >= 0) {
                 System.out.println("ENCONTRADA DEFAULTGATEWAY en ROUTER en interfaz : " + interfaz);
             }

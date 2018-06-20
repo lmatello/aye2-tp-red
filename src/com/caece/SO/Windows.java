@@ -86,7 +86,8 @@ public class Windows extends SO {
             tratarPaquete(paquete);
         } else {
             //La IP del paquete destino, no es para el dispositivo en cuestion
-            System.out.println("DESCARTO PAQUETE desde IP : " + paquete.getDireccionOrigen().toString());
+            System.out.println("Terminal " + this.getListaIPs().get(0)
+                    + " No es destinatario. Descarta paquete de IP : " + paquete.getDireccionOrigen().toString());
         }
     }
 
@@ -97,10 +98,12 @@ public class Windows extends SO {
             Paquete icmpResponse = new ICMPResponse(paquete.getDireccionDestino(), paquete.getDireccionOrigen(), 10);
             this.enviar(icmpResponse);
         } else if (paquete instanceof ICMPResponse) {
-            System.out.println(" ICMPResponse desde : " + paquete.getDireccionOrigen().toString() + " - " + LocalDateTime.now());
+            System.out.println("Terminal " + this.getListaIPs().get(0) + " recibe ICMPResponse de: "
+                    + paquete.getDireccionOrigen().toString() + " - " + LocalDateTime.now());
         } else {
             //Tipo de paquete desconocido
-            System.out.println("DESCARTO PAQUETE - Tipo Paquete DESCONOCIDO");
+            System.out.println("Terminal " + this.getListaIPs().get(0) +
+                    "Descarta Paquete de Tipo Desconocido");
         }
     }
 
