@@ -45,6 +45,6 @@ public class Router extends Dispositivo implements IInstallable {
 
     @Override
     public void recibir(Paquete paquete) {
-        //TODO
+        this.getSistemaOperativo().procesar(paquete);
     }
 }

@@ -18,4 +18,12 @@ public class Ruteo extends Paquete {
         super(servicio.getDireccionOrigen(), servicio.getDireccionDestino(), servicio.getTimeToLive());
         this.defaultGateway = defaultGateway;
     }
+
+    public IP getDefaultGateway() {
+        return defaultGateway;
+    }
+
+    public void setDefaultGateway(IP defaultGateway) {
+        this.defaultGateway = defaultGateway;
+    }
 }

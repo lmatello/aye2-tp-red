@@ -46,19 +46,6 @@ public class Windows extends SO {
         this.defaultGateway = defaultGateway;
     }
 
-    public void enviar(Paquete paquete){
-        //Chequeo MismaRed.
-        //EN "MismaRed" hacer for/while para ver si esta la IP
-        if (paquete.getDireccionDestino().mismaRed(this.getListaIPs().get(0))){
-            this.getDispositivo().getDispositivosConectados()[0].recibir(paquete);
-        }else {
-            System.out.println("HAY QUE ARMAR PAQUETE DE RUTEO");
-            //Ver aca el tema de la IP destino de defaultGateway (donde esta esta IP?)
-            Ruteo paqueteRuteo = new Ruteo((Servicio)paquete, this.defaultGateway); //Aca podria ir un IF con un instance of
-            this.getDispositivo().getDispositivosConectados()[0].recibir(paqueteRuteo);
-        }
-    }
-
     public List<IP> getListaIPs() {
         return listaIPs;
     }
@@ -73,6 +60,16 @@ public class Windows extends SO {
         //Siempre que hacemos un PING, asumimos que sale de la IP de la primer posicion
         Paquete icmpRequest = new ICMPRequest(this.getListaIPs().get(0),ipDestino,10);
         this.enviar(icmpRequest);
+    }
+
+    public void enviar(Paquete paquete){
+        //EN "MismaRed" hacer for/while para ver si esta la IP
+        if (paquete.getDireccionDestino().mismaRed(this.getListaIPs())){
+            this.getDispositivo().getDispositivosConectados()[0].recibir(paquete);
+        }else {
+            Ruteo paqueteRuteo = new Ruteo((Servicio)paquete, this.defaultGateway); //Aca podria ir un IF con un instance of
+            this.getDispositivo().getDispositivosConectados()[0].recibir(paqueteRuteo);
+        }
     }
 
     //ESTE DEBERIA SER ABSTRACT Y MANDARLO A CADA TERMINAL O ROUTER
@@ -105,10 +102,7 @@ public class Windows extends SO {
             //Tipo de paquete desconocido
             System.out.println("DESCARTO PAQUETE - Tipo Paquete DESCONOCIDO");
         }
-
-        }
-
-
+    }
 
  }
 
