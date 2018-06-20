@@ -13,7 +13,6 @@ public class Ruteo extends Paquete {
         super(direccionOrigen, direccionDestino, timeToLive);
     }
 
-    //Tiene sentido esto?
     public Ruteo(Servicio servicio, IP defaultGateway){
         super(servicio.getDireccionOrigen(), servicio.getDireccionDestino(), servicio.getTimeToLive());
         this.defaultGateway = defaultGateway;

@@ -1,5 +1,6 @@
 package com.caece.SO;
 
+import com.caece.Dispositivo.Dispositivo;
 import com.caece.Excepciones.InvalidIPException;
 import com.caece.IP;
 import com.caece.Paquete.*;
@@ -13,10 +14,20 @@ import java.util.Map;
 public class LinuxRouter extends SO {
 
     private Map<Integer, IP> tablaRuteo;
+    //private Map<Integer, Dispositivo> tablaRuteoDispositivo;
 
     public LinuxRouter(String nombre, String version) throws InvalidIPException {
         super(nombre, version);
         this.tablaRuteo = new HashMap<Integer, IP>();
+        //this.tablaRuteoDispositivo = new HashMap<Integer, Dispositivo>();
+    }
+
+    public Map<Integer, IP> getTablaRuteo() {
+        return tablaRuteo;
+    }
+
+    public void setTablaRuteo(Map<Integer, IP> tablaRuteo) {
+        this.tablaRuteo = tablaRuteo;
     }
 
     @Override
@@ -42,6 +53,7 @@ public class LinuxRouter extends SO {
             }
             else
                 System.out.println("NO SE ENCONTRO defaultGateway en Tabla de ruteo de ROUTER");
+                //Ir a otro Router?
         }
     }
 
