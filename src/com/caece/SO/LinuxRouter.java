@@ -4,6 +4,7 @@ import com.caece.Excepciones.InvalidIPException;
 import com.caece.IP;
 import com.caece.Paquete.*;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,20 +47,36 @@ public class LinuxRouter extends SO {
     //ESTE DEBERIA SER ABSTRACT Y MANDARLO A CADA TERMINAL O ROUTER
     public void procesar(Paquete paquete) {
         if (paquete instanceof Ruteo) {
-            Integer interfaz = obtenerInterfaz(((Ruteo) paquete).getDireccionRuteo());
-            if (interfaz >= 0) {
-                System.out.println("ENCONTRADA DEFAULTGATEWAY en ROUTER en interfaz : " + interfaz);
+            if (this.estaEnRouter(((Ruteo) paquete).getDireccionRuteo())) {
+                //Si entra aca, quiere decir que el defaultGateway, esta en el router.
+                System.out.println("ENCONTRADA DEFAULTGATEWAY en ROUTER");
+
+                Paquete paqueteServicio = new ICMPResponse(paquete.getDireccionOrigen(), paquete.getDireccionDestino(), 10);
+                //Aca buscar la direccionDestino (el paquete de Servicio) y dijarme los 3 primeros octetos a ver cual es la interfaz.
+                this.getDispositivo().getDispositivosConectados()[obtenerInterfaz(paquete.getDireccionDestino())].recibir(paqueteServicio);
+                // VER PORQUE DA NULL en recibir. Esta recbiendo alguien que no debe?
+                System.out.println("SOLO PARA PROBAR");
             }
             else
                 System.out.println("NO SE ENCONTRO defaultGateway en Tabla de ruteo de ROUTER");
-                //Ir a otro Router?
+            //Ir a otro Router?
         }
+    }
+
+    public boolean estaEnRouter(IP ip){
+        boolean encontrada = false;
+        for (Map.Entry<Integer, IP> entry : tablaRuteo.entrySet()) {
+            if (entry.getValue().iguales(ip)) {
+                encontrada = true;
+            }
+        }
+        return encontrada;
     }
 
     public Integer obtenerInterfaz(IP ip){
         Integer interfaz = -1;
         for (Map.Entry<Integer, IP> entry : tablaRuteo.entrySet()) {
-            if (entry.getValue().iguales(ip)) {
+            if (entry.getValue().mismaRed(ip)) {
                 interfaz = entry.getKey();
             }
         }

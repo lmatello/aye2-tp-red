@@ -30,6 +30,7 @@ public class Router extends Dispositivo implements IInstallable {
     @Override
     public void instalar(SO so) {
         this.sistemaOperativo = so;
+        sistemaOperativo.setDispositivo(this);
     }
 
     // Este metodo es igual en todos los dispositivos.

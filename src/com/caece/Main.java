@@ -15,9 +15,6 @@ public class Main {
 
     public static void main(String[] args) throws NetWorkException {
 
-        //IP ip2 = new IP(172,0,0,120);
-        //IP ip = IP.stringToIP("192.168.0.10"); //Esto se pediria con el SCANNER
-
         // Creacion de SO y Terminales
         Windows windowsPc1 = new Windows("Windows", "10");
         Windows windowsPc2 = new Windows("Windows", "7");
@@ -54,8 +51,8 @@ public class Main {
         hub1.conectar(router1);
         hub2.conectar(router1);
 
-        pc1.getSistemaOperativo().ping("192.168.0.20");
-        pc2.getSistemaOperativo().ping("192.168.0.15");
+        //pc1.getSistemaOperativo().ping("192.168.0.20");
+        //pc2.getSistemaOperativo().ping("192.168.0.15");
 
         //Prueba paquete de ruteo -> Hay que armarlo.
         pc1.getSistemaOperativo().ping("192.168.1.30");

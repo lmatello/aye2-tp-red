@@ -87,6 +87,7 @@ public abstract class Dispositivo {
         for (int i=0; i < dispositivo.dispositivosConectados.length; i++){
             if (dispositivo.getDispositivosConectados()[i] == null){
                 indice = i;
+                break;
             }
         }
         return indice;
