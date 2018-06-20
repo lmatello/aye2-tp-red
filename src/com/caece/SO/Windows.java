@@ -56,10 +56,13 @@ public class Windows extends SO {
 
     @Override
     public void ping (String ip) throws InvalidIPException {
+
         IP ipDestino = IP.stringToIP(ip);
         //Siempre que hacemos un PING, asumimos que sale de la IP de la primer posicion
+        System.out.println("Terminal " + this.getListaIPs().get(0) + " haciendo ping a " + ip);
         Paquete icmpRequest = new ICMPRequest(this.getListaIPs().get(0),ipDestino,10);
         this.enviar(icmpRequest);
+
     }
 
     public void enviar(Paquete paquete){
@@ -94,8 +97,11 @@ public class Windows extends SO {
     @Override
     public void tratarPaquete(Paquete paquete) {
         if (paquete instanceof ICMPRequest) {
+            System.out.println("Terminal " + this.getListaIPs().get(0) +
+                    " recibe ICMPRequest de: " + paquete.getDireccionOrigen().toString());
             Paquete icmpResponse = new ICMPResponse(paquete.getDireccionDestino(), paquete.getDireccionOrigen(), 10);
             this.enviar(icmpResponse);
+
         } else if (paquete instanceof ICMPResponse) {
             System.out.println("Terminal " + this.getListaIPs().get(0) + " recibe ICMPResponse de: "
                     + paquete.getDireccionOrigen().toString() + " - " + LocalDateTime.now());
