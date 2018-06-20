@@ -26,9 +26,11 @@ public class Windows extends SO {
     @Override
     public void configurarInterfazDeRed(String ip) throws InvalidIPException {
         IP newIP = IP.stringToIP(ip);
+        if (this.listaIPs.isEmpty()) {
+            this.defaultGateway = new IP(newIP.getOcteto1(), newIP.getOcteto2(), newIP.getOcteto3(), 254);
+        }
+
         this.listaIPs.add(newIP);
-        if (this.listaIPs.isEmpty())
-            this.defaultGateway = new IP(newIP.getOcteto1(),newIP.getOcteto2(),newIP.getOcteto3(),254);
     }
 
     @Override
