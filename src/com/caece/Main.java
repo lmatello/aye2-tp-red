@@ -37,14 +37,14 @@ public class Main {
         pc1.instalar(windowsPc1);
         pc2.instalar(windowsPc2);
         pc3.instalar(windowsPc3);
-        pc1.getSistemaOperativo().asignarIP("192.168.0.10");
-        pc2.getSistemaOperativo().asignarIP("192.168.0.20");
-        pc3.getSistemaOperativo().asignarIP("192.168.1.30");
+        pc1.getSistemaOperativo().configurarInterfazDeRed("192.168.0.10");
+        pc2.getSistemaOperativo().configurarInterfazDeRed("192.168.0.20");
+        pc3.getSistemaOperativo().configurarInterfazDeRed("192.168.1.30");
 
         //Configuracion Router (Instalacion SO y Asignacion de IPs
         router1.instalar(linuxRouter);
-        router1.getSistemaOperativo().asignarIPPuerto(0,"192.168.0.254");
-        router1.getSistemaOperativo().asignarIPPuerto(1,"192.168.1.254");
+        router1.getSistemaOperativo().configurarInterfazDeRed(0,"192.168.0.254");
+        router1.getSistemaOperativo().configurarInterfazDeRed(1,"192.168.1.254");
 
         //Conexiones
         pc1.conectar(hub1);
