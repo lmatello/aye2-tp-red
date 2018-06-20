@@ -38,14 +38,19 @@ public class IP {
         return new IP(Integer.parseInt(ip.split("\\.")[0]),Integer.parseInt(ip.split("\\.")[1]),Integer.parseInt(ip.split("\\.")[2]),Integer.parseInt(ip.split("\\.")[3]));
     }
 
-    public Boolean iguales(IP ip) {
-        return this.octeto1 == ip.octeto1 && this.octeto2 == ip.octeto2
-                && this.octeto3 == ip.octeto3 && this.octeto4 == ip.octeto4;
+    public Boolean iguales(IP ip)
+    {
+        return     this.octeto1 == ip.octeto1
+                && this.octeto2 == ip.octeto2
+                && this.octeto3 == ip.octeto3
+                && this.octeto4 == ip.octeto4;
 
     }
 
-    public Boolean mismaRed(IP ip) {
-        return this.octeto1 == ip.octeto1 && this.octeto2 == ip.octeto2
+    public Boolean mismaRed(IP ip)
+    {
+        return  this.octeto1 == ip.octeto1
+                && this.octeto2 == ip.octeto2
                 && this.octeto3 == ip.octeto3;
 
     }
@@ -84,11 +89,6 @@ public class IP {
 
     @Override
     public String toString() {
-        return "IP{" +
-                "octeto1=" + octeto1 +
-                ", octeto2=" + octeto2 +
-                ", octeto3=" + octeto3 +
-                ", octeto4=" + octeto4 +
-                '}';
+        return "[" + octeto1 + "." + octeto2 + "." + octeto3 + "." + octeto4 + "]";
     }
 }

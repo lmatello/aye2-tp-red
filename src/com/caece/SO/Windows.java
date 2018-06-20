@@ -77,24 +77,40 @@ public class Windows extends SO {
 
     //ESTE DEBERIA SER ABSTRACT Y MANDARLO A CADA TERMINAL O ROUTER
     public void procesar(Paquete paquete) {
-        //Si el paquetes es "para mi" hago algo. Sino, lo descarto
-        // VER ACA PORQUE ESTA PASANDO 2 veces por la IP que le mando. Estaria bien? -> VER LO DE DESCARTAR
 
-        //recorrer toda la lista de ips de la terminal.
-        if (paquete.getDireccionDestino().iguales(this.getListaIPs().get(0))){
-            if (paquete instanceof ICMPRequest){
-                Paquete icmpResponse = new ICMPResponse(paquete.getDireccionDestino(),paquete.getDireccionOrigen(),10);
-                this.enviar(icmpResponse);
-
-            }else if (paquete instanceof ICMPResponse){
-                System.out.println("Recibido ICMP desde : " + paquete.getDireccionOrigen().toString() + " - " + LocalDateTime.now());
-            }else{
-                //Tipo de paquete desconocido
-                System.out.println("DESCARTO PAQUETE - Tipo Paquete DESCONOCIDO");
-            }
-        }else{
+        //con este while pregunto si el paquete es para alguna de mis ip
+        // si es asi, trato el paquete
+        int i = 0;
+        while (i < getListaIPs().size() && !paquete.getDireccionDestino().iguales(this.getListaIPs().get(i))) {
+            i++;
+        }
+        if (i < this.getListaIPs().size()) {
+            //if (paquete.getDireccionDestino().iguales(this.getListaIPs().get(i))) {
+            tratarPaquete(paquete);
+        } else {
             //La IP del paquete destino, no es para el dispositivo en cuestion
             System.out.println("DESCARTO PAQUETE desde IP : " + paquete.getDireccionOrigen().toString());
         }
     }
-}
+
+
+    @Override
+    public void tratarPaquete(Paquete paquete) {
+        if (paquete instanceof ICMPRequest) {
+            Paquete icmpResponse = new ICMPResponse(paquete.getDireccionDestino(), paquete.getDireccionOrigen(), 10);
+            this.enviar(icmpResponse);
+        } else if (paquete instanceof ICMPResponse) {
+            System.out.println(" ICMPResponse desde : " + paquete.getDireccionOrigen().toString() + " - " + LocalDateTime.now());
+        } else {
+            //Tipo de paquete desconocido
+            System.out.println("DESCARTO PAQUETE - Tipo Paquete DESCONOCIDO");
+        }
+
+        }
+
+
+
+ }
+
+
+

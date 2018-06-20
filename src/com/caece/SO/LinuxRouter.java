@@ -41,6 +41,11 @@ public class LinuxRouter extends SO {
     }
 
     @Override
+    public void tratarPaquete(Paquete paquete) {
+
+    }
+
+    @Override
     public void ping(String ipDestino) throws InvalidIPException {
         //TODO
     }

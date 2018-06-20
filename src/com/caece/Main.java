@@ -38,6 +38,7 @@ public class Main {
         pc2.instalar(windowsPc2);
         pc3.instalar(windowsPc3);
         pc1.getSistemaOperativo().configurarInterfazDeRed("192.168.0.10");
+        pc1.getSistemaOperativo().configurarInterfazDeRed("192.168.0.15");
         pc2.getSistemaOperativo().configurarInterfazDeRed("192.168.0.20");
         pc3.getSistemaOperativo().configurarInterfazDeRed("192.168.1.30");
 
@@ -54,10 +55,10 @@ public class Main {
         hub2.conectar(router1);
 
         pc1.getSistemaOperativo().ping("192.168.0.20");
-        pc2.getSistemaOperativo().ping("192.168.0.10");
+        pc2.getSistemaOperativo().ping("192.168.0.15");
 
         //Prueba paquete de ruteo -> Hay que armarlo.
-        pc1.getSistemaOperativo().ping("192.168.1.30");
+       // pc1.getSistemaOperativo().ping("192.168.1.30");
 
 
 

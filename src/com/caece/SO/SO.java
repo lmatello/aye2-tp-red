@@ -40,4 +40,6 @@ public abstract class SO implements ComandosIP {
     public abstract void enviar(Paquete paquete);
 
     public abstract void procesar(Paquete paquete);
+
+    public abstract void tratarPaquete(Paquete paquete);
 }
