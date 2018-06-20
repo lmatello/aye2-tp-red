@@ -54,8 +54,7 @@ public class LinuxRouter extends SO {
                 Paquete paqueteServicio = new ICMPResponse(paquete.getDireccionOrigen(), paquete.getDireccionDestino(), 10);
                 //Aca buscar la direccionDestino (el paquete de Servicio) y dijarme los 3 primeros octetos a ver cual es la interfaz.
                 this.getDispositivo().getDispositivosConectados()[obtenerInterfaz(paquete.getDireccionDestino())].recibir(paqueteServicio);
-                // VER PORQUE DA NULL en recibir. Esta recbiendo alguien que no debe?
-                System.out.println("SOLO PARA PROBAR");
+
             }
             else
                 System.out.println("NO SE ENCONTRO defaultGateway en Tabla de ruteo de ROUTER");

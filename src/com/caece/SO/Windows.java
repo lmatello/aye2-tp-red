@@ -72,7 +72,6 @@ public class Windows extends SO {
         }
     }
 
-    //ESTE DEBERIA SER ABSTRACT Y MANDARLO A CADA TERMINAL O ROUTER
     public void procesar(Paquete paquete) {
 
         //con este while pregunto si el paquete es para alguna de mis ip

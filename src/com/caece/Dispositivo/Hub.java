@@ -28,7 +28,8 @@ public class Hub extends Dispositivo {
 
     public void recibir(Paquete paquete) {
         for (Dispositivo dispositivo : dispositivosConectados) {
-            dispositivo.recibir(paquete);
+            if (dispositivo != null)
+                dispositivo.recibir(paquete);
         }
     }
 }
