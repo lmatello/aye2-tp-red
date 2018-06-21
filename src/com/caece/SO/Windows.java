@@ -90,7 +90,7 @@ public class Windows extends SO {
         } else {
             //La IP del paquete destino, no es para el dispositivo en cuestion
             System.out.println("Terminal " + this.getListaIPs().get(0)
-                    + " No es destinatario. Descarta paquete de IP : " + paquete.getDireccionOrigen().toString());
+                    + " No es destinatario. Descarta paquete de : " + paquete.getDireccionOrigen().toString());
         }
     }
 

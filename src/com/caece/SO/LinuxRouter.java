@@ -41,21 +41,35 @@ public class LinuxRouter extends SO {
         this.tablaRuteo.put(interfaz,IP.stringToIP(ip));
     }
 
-    public void enviar(Paquete paquete){
-        //TODO
+    public void enviar(Paquete paquete) {
+        if (estaEnRouter(paquete.getDireccionDestino())) {
+            this.getDispositivo().getDispositivosConectados()[0].recibir(paquete);
+        } else {
+            System.out.println("Router Interfaz" + obtenerInterfaz((paquete.getDireccionOrigen()) )
+            + ": No puede alcanzar el destino " + paquete.getDireccionDestino());
+
+        }
     }
 
-    //ESTE DEBERIA SER ABSTRACT Y MANDARLO A CADA TERMINAL O ROUTER
     public void procesar(Paquete paquete) {
-        if (paquete instanceof Ruteo) {
-            System.out.println("Router Interfaz" + obtenerInterfaz((paquete.getDireccionOrigen()))
-                    + " recibio un paquete desde " + ((Ruteo) paquete).getPaqueteARutear().getDireccionOrigen());
-            tratarPaquete(paquete);
+
+            if (paquete instanceof Ruteo) {
+                System.out.println("Router Interfaz" + obtenerInterfaz((paquete.getDireccionOrigen()))
+                        + " recibio un paquete de Ruteo desde " + ((Ruteo) paquete).getPaqueteARutear().getDireccionOrigen());
+                tratarPaquete(paquete);
+            } else if (paquete instanceof Servicio) {
+                int i = 0;
+                while (i < getTablaRuteo().size() && !paquete.getDireccionDestino().iguales(this.getTablaRuteo().get(i))) {
+                    i++;
+                }
+                if (i < this.getTablaRuteo().size()) {
+                System.out.println("Router Interfaz" + obtenerInterfaz((paquete.getDireccionOrigen()))
+                        + " recibio un paquete de Servicio desde " + (paquete.getDireccionOrigen()));
+                    tratarPaquete(paquete);
+                };
             }
-            else
-                System.out.println("NO SE ENCONTRO defaultGateway en Tabla de ruteo de ROUTER");
-            //Ir a otro Router?
-        }
+
+    }
 
 
     public boolean estaEnRouter(IP ip){
@@ -81,9 +95,20 @@ public class LinuxRouter extends SO {
     @Override
     public void tratarPaquete(Paquete paquete)
     {
-        System.out.println("Redireccionando paquete por Interfaz" + obtenerInterfaz(paquete.getDireccionDestino()) );
-        this.getDispositivo().getDispositivosConectados()[obtenerInterfaz(paquete.getDireccionDestino())].recibir(((Ruteo) paquete).getPaqueteARutear());
-
+        if (paquete instanceof Ruteo) {
+            System.out.println("Redireccionando paquete por Interfaz" + obtenerInterfaz(paquete.getDireccionDestino()));
+            this.getDispositivo().getDispositivosConectados()[obtenerInterfaz(paquete.getDireccionDestino())].recibir(((Ruteo) paquete).getPaqueteARutear());
+        } else
+            if (paquete instanceof Servicio)
+            {
+                if (paquete instanceof ICMPRequest)
+                {
+                    System.out.println("Router Interfaz" + obtenerInterfaz(paquete.getDireccionDestino()) +
+                            " recibe ICMPRequest de: " + paquete.getDireccionOrigen().toString());
+                    Paquete icmpResponse = new ICMPResponse(paquete.getDireccionDestino(), paquete.getDireccionOrigen(), 10);
+                    this.enviar(icmpResponse);
+                }
+            }
 
     }
 

@@ -51,7 +51,7 @@ public class Main {
         hub1.conectar(router1);
         hub2.conectar(router1);
 
-     //  pc1.getSistemaOperativo().ping("192.168.0.20");
+      pc1.getSistemaOperativo().ping("192.168.0.20");
      //   pc2.getSistemaOperativo().ping("192.168.0.15");
 
         //Prueba paquete de ruteo -> Hay que armarlo.
