@@ -70,7 +70,8 @@ public class Windows extends SO {
         if (paquete.getDireccionDestino().mismaRed(this.getListaIPs())){
             this.getDispositivo().getDispositivosConectados()[0].recibir(paquete);
         }else {
-            Ruteo paqueteRuteo = new Ruteo((Servicio)paquete, this.defaultGateway); //Aca podria ir un IF con un instance of
+
+            Ruteo paqueteRuteo = new Ruteo(this.defaultGateway, paquete.getDireccionDestino(), paquete.getTimeToLive(), paquete); //Aca podria ir un IF con un instance of
             this.getDispositivo().getDispositivosConectados()[0].recibir(paqueteRuteo);
         }
     }

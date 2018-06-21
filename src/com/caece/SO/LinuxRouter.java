@@ -1,5 +1,6 @@
 package com.caece.SO;
 
+import com.caece.Dispositivo.Router;
 import com.caece.Excepciones.InvalidIPException;
 import com.caece.IP;
 import com.caece.Paquete.*;
@@ -47,20 +48,15 @@ public class LinuxRouter extends SO {
     //ESTE DEBERIA SER ABSTRACT Y MANDARLO A CADA TERMINAL O ROUTER
     public void procesar(Paquete paquete) {
         if (paquete instanceof Ruteo) {
-            if (this.estaEnRouter(((Ruteo) paquete).getDireccionRuteo())) {
-                //Si entra aca, quiere decir que el defaultGateway, esta en el router.
-                System.out.println("ENCONTRADA DEFAULTGATEWAY en ROUTER");
-
-                Paquete paqueteServicio = new ICMPResponse(paquete.getDireccionOrigen(), paquete.getDireccionDestino(), 10);
-                //Aca buscar la direccionDestino (el paquete de Servicio) y dijarme los 3 primeros octetos a ver cual es la interfaz.
-                this.getDispositivo().getDispositivosConectados()[obtenerInterfaz(paquete.getDireccionDestino())].recibir(paqueteServicio);
-
+            System.out.println("Router Interfaz" + obtenerInterfaz((paquete.getDireccionOrigen()))
+                    + " recibio un paquete desde " + ((Ruteo) paquete).getPaqueteARutear().getDireccionOrigen());
+            tratarPaquete(paquete);
             }
             else
                 System.out.println("NO SE ENCONTRO defaultGateway en Tabla de ruteo de ROUTER");
             //Ir a otro Router?
         }
-    }
+
 
     public boolean estaEnRouter(IP ip){
         boolean encontrada = false;
@@ -83,12 +79,19 @@ public class LinuxRouter extends SO {
     }
 
     @Override
-    public void tratarPaquete(Paquete paquete) {
-        //TODO
+    public void tratarPaquete(Paquete paquete)
+    {
+        System.out.println("Redireccionando paquete por Interfaz" + obtenerInterfaz(paquete.getDireccionDestino()) );
+        this.getDispositivo().getDispositivosConectados()[obtenerInterfaz(paquete.getDireccionDestino())].recibir(((Ruteo) paquete).getPaqueteARutear());
+
+
     }
 
     @Override
     public void ping(String ipDestino) throws InvalidIPException {
-        //TODO
+        if (estaEnRouter(IP.stringToIP(ipDestino)))
+        {
+
+        }
     }
 }

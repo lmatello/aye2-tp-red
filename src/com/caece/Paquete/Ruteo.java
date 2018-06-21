@@ -7,22 +7,22 @@ import com.caece.IP;
  */
 public class Ruteo extends Paquete {
 
-    private IP direccionRuteo;
+    private Paquete paqueteARutear;
 
-    public Ruteo(IP direccionOrigen, IP direccionDestino, Integer timeToLive) {
+
+     //Armo un paquete ruteo con un servicio dentro, y la direccion destino ahora va a ser la direccion que reciba
+    //La direccion que recibo es el default gateway del equipo que encontro que el paquete no lo puedo enviar
+    //dentro de su red
+    public Ruteo(IP direccionOrigen, IP direccionDestino, Integer timeToLive, Paquete paqueteARutear){
         super(direccionOrigen, direccionDestino, timeToLive);
+        this.paqueteARutear = paqueteARutear;
     }
 
-    public Ruteo(Servicio servicio, IP direccionRuteo){
-        super(servicio.getDireccionOrigen(), servicio.getDireccionDestino(), servicio.getTimeToLive());
-        this.direccionRuteo = direccionRuteo;
+    public Paquete getPaqueteARutear() {
+        return paqueteARutear;
     }
 
-    public IP getDireccionRuteo() {
-        return direccionRuteo;
-    }
-
-    public void setDireccionRuteo(IP direccionRuteo) {
-        this.direccionRuteo = direccionRuteo;
+    public void setPaqueteARutear(Paquete paqueteARutear) {
+        this.paqueteARutear = paqueteARutear;
     }
 }

@@ -31,6 +31,7 @@ public abstract class SO implements ComandosIP {
 
     public Dispositivo getDispositivo() {
         return dispositivo;
+
     }
 
     public void setDispositivo(Dispositivo dispositivo) {
