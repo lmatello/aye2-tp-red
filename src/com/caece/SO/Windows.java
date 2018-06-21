@@ -17,7 +17,6 @@ public class Windows extends SO {
     private IP defaultGateway;
     private List<IP> listaIPs;
 
-    //VER ESTE THROWS CON EL PROFE. Queda feo aca.
     public Windows(String nombre, String version) throws NetWorkException {
         super(nombre, version);
         this.listaIPs = new ArrayList<>(); //Inicializo en vacio la lista de IPs
@@ -96,6 +95,7 @@ public class Windows extends SO {
         {
             tratarPaquete(paquete);
         } else {
+            //PASAR ESTO A UNA EXCEPTION del tipo "RejectedPackageException"
                      System.out.println("Terminal " + this.getListaIPs().get(0)
                     + " No es destinatario. Descarta paquete de : " + paquete.getDireccionOrigen().toString());
         }
@@ -125,7 +125,7 @@ public class Windows extends SO {
                     " recibe SendMessage de " + paquete.getDireccionOrigen().toString());
             ((SendMessage) paquete).getSistemaOperativo().verDatos();
         }else {
-            //Tipo de paquete desconocido
+            //PASAR ESTO A UNA EXCEPTION del tipo "UnknownPackageTypeException"
             System.out.println("Terminal " + this.getListaIPs().get(0) +
                     "Descarta Paquete de Tipo Desconocido");
         }

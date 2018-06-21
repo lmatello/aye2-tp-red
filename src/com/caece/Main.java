@@ -4,10 +4,6 @@ import com.caece.Dispositivo.Hub;
 import com.caece.Dispositivo.Router;
 import com.caece.Dispositivo.Terminal;
 import com.caece.Excepciones.NetWorkException;
-import com.caece.Paquete.ICMPRequest;
-import com.caece.Paquete.ICMPResponse;
-import com.caece.Paquete.Paquete;
-import com.caece.Paquete.Servicio;
 import com.caece.SO.LinuxRouter;
 import com.caece.SO.Windows;
 
@@ -53,13 +49,12 @@ public class Main {
 
         System.out.println("--------Envio de PING en LAN-----------");
         pc1.getSistemaOperativo().ping("192.168.0.20");
-     //   pc2.getSistemaOperativo().ping("192.168.0.15");
+        // pc2.getSistemaOperativo().ping("192.168.0.15");
         System.out.println("--------Fin--------");
 
         System.out.println("--------Envio de PING a otra VLAN-----------");
         pc1.getSistemaOperativo().ping("192.168.1.30");
         System.out.println("--------Fin--------");
-
 
         System.out.println("--------Envio de WHO a Terminal-----------");
         pc1.getSistemaOperativo().who("192.168.1.30");
@@ -77,20 +72,8 @@ public class Main {
         router1.getSistemaOperativo().ping("192.168.0.10");
         System.out.println("--------Fin--------");
 
-
-
-        //Muestreo De Datos
-//        System.out.println("PC1 - IPs:");
-//        for (int i=0; i<pc1.getSistemaOperativo().getTablaRuteo().size(); i++) {
-//            System.out.println(pc1.getSistemaOperativo().getTablaRuteo().get(i));
-//        }
-//        System.out.println("Router1 - IPs");
-//        for (int i=0; i<router1.getSistemaOperativo().getTablaRuteo().size(); i++) {
-//            System.out.println(router1.getSistemaOperativo().getTablaRuteo().get(i));
-//        }
-//        System.out.println("Hub1 - Dispositivos Conectados:");
-//        for (int i=0; i < hub1.getDispositivosConectados().length; i++){
-//            System.out.println(hub1.getDispositivosConectados()[i].getClass().getName());
-//        }
+        System.out.println("--------Envio de WHO de Router a Terminal-----------");
+        router1.getSistemaOperativo().who("192.168.0.10");
+        System.out.println("--------Fin--------");
     }
 }

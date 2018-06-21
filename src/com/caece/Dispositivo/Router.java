@@ -33,8 +33,6 @@ public class Router extends Dispositivo implements IInstallable {
         sistemaOperativo.setDispositivo(this);
     }
 
-    // Este metodo es igual en todos los dispositivos.
-    // Lo lleve a "DISPOSITVO". Seria correcto? Dejo de ser un metodo abstracto el conectar.
     @Override
     public void conectar(Dispositivo dispositivo) throws ExceededConectionException {
         super.conectar(dispositivo);

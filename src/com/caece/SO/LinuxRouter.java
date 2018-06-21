@@ -16,12 +16,10 @@ import java.util.Map;
 public class LinuxRouter extends SO {
 
     private Map<Integer, IP> tablaRuteo;
-    //private Map<Integer, Dispositivo> tablaRuteoDispositivo;
 
     public LinuxRouter(String nombre, String version) throws InvalidIPException {
         super(nombre, version);
         this.tablaRuteo = new HashMap<Integer, IP>();
-        //this.tablaRuteoDispositivo = new HashMap<Integer, Dispositivo>();
     }
 
     public Map<Integer, IP> getTablaRuteo() {
@@ -44,8 +42,13 @@ public class LinuxRouter extends SO {
 
     public void enviar(Paquete paquete) {
         if (estaDestinoEnRouter(paquete.getDireccionDestino())) {
-            this.getDispositivo().getDispositivosConectados()[obtenerInterfaz(paquete.getDireccionDestino())].recibir(paquete);
+            try{
+                this.getDispositivo().getDispositivosConectados()[obtenerInterfaz(paquete.getDireccionDestino())].recibir(paquete);
+            }catch (NullPointerException e){
+                System.out.println("No existe equipo conectado en interfaz seleccionada.");
+            }
         } else {
+            //PASAR ESTO A UNA EXCEPTION del tipo "UnreachableException"
             System.out.println("Router Interfaz" + obtenerInterfaz((paquete.getDireccionOrigen()) )
             + ": No puede alcanzar el destino " + paquete.getDireccionDestino());
 
@@ -68,6 +71,7 @@ public class LinuxRouter extends SO {
                         tratarPaquete(((Ruteo) paquete).getPaqueteARutear());
                         } else tratarPaquete(paquete);
                 } else
+                    //PASAR ESTO A UNA EXCEPTION del tipo "PackageRejectedByTTLTimeoutException"
                     System.out.println("Router Interfaz" + obtenerInterfaz((paquete.getDireccionOrigen()))
                             + " descarta paquete de Ruteo por Timeout de " + ((Ruteo) paquete).getPaqueteARutear().getDireccionOrigen());
             } else if (paquete instanceof Servicio) {
