@@ -8,9 +8,8 @@ import com.caece.IP;
  */
 public interface ComandosIP {
 
-    void ping(String ipDestino) throws InvalidIPException;
+    void ping(String ip) throws InvalidIPException;
+    void who(String ip) throws InvalidIPException;
 
-    //public void who(IP ipDestino);
-    //public void tracert(IP ipDestino);
 
 }

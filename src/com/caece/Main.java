@@ -51,12 +51,31 @@ public class Main {
         hub1.conectar(router1);
         hub2.conectar(router1);
 
-      pc1.getSistemaOperativo().ping("192.168.0.20");
+        System.out.println("--------Envio de PING en LAN-----------");
+        pc1.getSistemaOperativo().ping("192.168.0.20");
      //   pc2.getSistemaOperativo().ping("192.168.0.15");
+        System.out.println("--------Fin--------");
 
-        //Prueba paquete de ruteo -> Hay que armarlo.
+        System.out.println("--------Envio de PING a otra VLAN-----------");
         pc1.getSistemaOperativo().ping("192.168.1.30");
+        System.out.println("--------Fin--------");
 
+
+        System.out.println("--------Envio de WHO a Terminal-----------");
+        pc1.getSistemaOperativo().who("192.168.1.30");
+        System.out.println("--------Fin--------");
+
+        System.out.println("--------Envio de Ping a Router-----------");
+        pc1.getSistemaOperativo().ping("192.168.0.254");
+        System.out.println("--------Fin--------");
+
+        System.out.println("--------Envio de WHO a Router-----------");
+        pc1.getSistemaOperativo().who("192.168.0.254");
+        System.out.println("--------Fin--------");
+
+        System.out.println("--------Envio de Ping de Router a Terminal-----------");
+        router1.getSistemaOperativo().ping("192.168.0.10");
+        System.out.println("--------Fin--------");
 
 
 

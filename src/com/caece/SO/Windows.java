@@ -65,31 +65,38 @@ public class Windows extends SO {
 
     }
 
+    @Override
+    public void who(String ip) throws InvalidIPException {
+
+        IP ipDestino = IP.stringToIP(ip);
+        System.out.println("Terminal " + this.getListaIPs().get(0) + " solicitando WHO a " + ip);
+        Paquete who = new Who(this.getListaIPs().get(0),ipDestino,10);
+        this.enviar(who);
+
+    }
+
     public void enviar(Paquete paquete){
         //EN "MismaRed" hacer for/while para ver si esta la IP
         if (paquete.getDireccionDestino().mismaRed(this.getListaIPs())){
             this.getDispositivo().getDispositivosConectados()[0].recibir(paquete);
         }else {
 
-            Ruteo paqueteRuteo = new Ruteo(this.defaultGateway, paquete.getDireccionDestino(), paquete.getTimeToLive(), paquete); //Aca podria ir un IF con un instance of
+            Ruteo paqueteRuteo = new Ruteo(this.defaultGateway, paquete.getDireccionDestino(), paquete.getTimeToLive(), paquete);
             this.getDispositivo().getDispositivosConectados()[0].recibir(paqueteRuteo);
         }
     }
 
     public void procesar(Paquete paquete) {
 
-        //con este while pregunto si el paquete es para alguna de mis ip
-        // si es asi, trato el paquete
         int i = 0;
         while (i < getListaIPs().size() && !paquete.getDireccionDestino().iguales(this.getListaIPs().get(i))) {
             i++;
         }
-        if (i < this.getListaIPs().size()) {
-            //if (paquete.getDireccionDestino().iguales(this.getListaIPs().get(i))) {
+        if (i < this.getListaIPs().size())
+        {
             tratarPaquete(paquete);
         } else {
-            //La IP del paquete destino, no es para el dispositivo en cuestion
-            System.out.println("Terminal " + this.getListaIPs().get(0)
+                     System.out.println("Terminal " + this.getListaIPs().get(0)
                     + " No es destinatario. Descarta paquete de : " + paquete.getDireccionOrigen().toString());
         }
     }
@@ -106,14 +113,34 @@ public class Windows extends SO {
         } else if (paquete instanceof ICMPResponse) {
             System.out.println("Terminal " + this.getListaIPs().get(0) + " recibe ICMPResponse de: "
                     + paquete.getDireccionOrigen().toString() + " - " + LocalDateTime.now());
-        } else {
+        } else if (paquete instanceof Who)
+        {
+            System.out.println("Terminal " + this.getListaIPs().get(0) +
+                    " recibe solicitud WHO de: " + paquete.getDireccionOrigen().toString());
+            Paquete sendMessage = new SendMessage(paquete.getDireccionDestino(),paquete.getDireccionOrigen(),10, this);
+            this.enviar(sendMessage);
+        } else if (paquete instanceof SendMessage)
+        {
+            System.out.println("Terminal " + this.getListaIPs().get(0) +
+                    " recibe SendMessage de " + paquete.getDireccionOrigen().toString());
+            ((SendMessage) paquete).getSistemaOperativo().verDatos();
+        }else {
             //Tipo de paquete desconocido
             System.out.println("Terminal " + this.getListaIPs().get(0) +
                     "Descarta Paquete de Tipo Desconocido");
         }
     }
 
- }
+    @Override
+    public void verDatos() {
+        System.out.println("SO: " + super.getNombre());
+        System.out.println("Version SO: " + super.getVersion());
+        System.out.println("IP: " + this.getListaIPs().get(0));
+        System.out.println("Default Gateway: " + this.defaultGateway);
+
+    }
+
+}
 
 
 

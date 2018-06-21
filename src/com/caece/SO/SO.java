@@ -43,4 +43,22 @@ public abstract class SO implements ComandosIP {
     public abstract void procesar(Paquete paquete);
 
     public abstract void tratarPaquete(Paquete paquete);
+
+    public abstract void verDatos();
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
 }
